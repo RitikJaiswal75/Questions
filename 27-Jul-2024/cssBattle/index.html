@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .clock {
+        border-radius: 50%;
+        height: 300px;
+        width: 300px;
+        position: relative;
+        border: 2px solid black;
+      }
+      .seconds {
+        height: 130px;
+        background-color: black;
+        width: 2px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+      }
+      .minutes {
+        height: 120px;
+        background-color: red;
+        width: 4px;
+        position: absolute;
+        top: 50%;
+        left: calc(50% - 2px);
+      }
+      .hours {
+        height: 100px;
+        background-color: blue;
+        width: 6px;
+        position: absolute;
+        top: 50%;
+        left: calc(50% - 3px);
+      }
+      .centralCircle {
+        width: 20px;
+        height: 20px;
+        background-color: teal;
+        border-radius: 50%;
+        position: absolute;
+        top: calc(50% - 10px);
+        left: calc(50% - 10px);
+      }
+      .twelve {
+        width: 20px;
+        position: absolute;
+        top: 0;
+        left: calc(50% - 10px);
+      }
+      .three {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: calc(50% - 20px);
+        left: calc(100% - 10px);
+      }
+      .nine {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: calc(50% - 10px);
+        left: 0;
+      }
+      .six {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: calc(100% - 20px);
+        left: calc(50% - 0px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="clock">
+      <div class="seconds" id="secondsArm"></div>
+      <div class="minutes" id="minutesArm"></div>
+      <div class="hours" id="hoursArm"></div>
+      <div class="centralCircle"></div>
+      <div class="twelve">12</div>
+      <div class="three">3</div>
+      <div class="nine">9</div>
+      <div class="six">6</div>
+    </div>
+    <script>
+      const singleRotationUnit = 360 / 60;
+      let secondsCurrentRotation = 0;
+      let minutesCurrentRotation = 0;
+      let hoursCurrentRotation = 0;
+
+      const secondsArm = document.getElementById("secondsArm");
+      const minutesArm = document.getElementById("minutesArm");
+      const hoursArm = document.getElementById("hoursArm");
+
+      secondsArm.style.transformOrigin = "top";
+      minutesArm.style.transformOrigin = "top";
+      hoursArm.style.transformOrigin = "top";
+      
+      setInterval(() => {
+        if (minutesCurrentRotation === 360) {
+          secondsCurrentRotation = 0;
+          minutesCurrentRotation = 0;
+          hoursCurrentRotation += singleRotationUnit;
+          hoursArm.style.transform = `rotate(${hoursCurrentRotation}deg)`;
+        }
+        if (secondsCurrentRotation === 360) {
+          secondsCurrentRotation = 0;
+          minutesCurrentRotation += singleRotationUnit;
+          minutesArm.style.transform = `rotate(${minutesCurrentRotation}deg)`;
+        }
+        secondsCurrentRotation += singleRotationUnit;
+        secondsArm.style.transform = `rotate(${secondsCurrentRotation}deg)`;
+      }, 1000);
+    </script>
+  </body>
+</html>
